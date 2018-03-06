@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2017 rel. 3 sp1 (x64) (http://www.altova.com) by YI JIE WU (International Integrated Systems, Inc. (IISI)) -->
+<xs:schema xmlns="http://ptx.transportdata.tw/standard/schema/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ptx.transportdata.tw/standard/schema/" elementFormDefault="unqualified" attributeFormDefault="unqualified" version="2.0" id="ptx_ferry_code">
+	<!--...............航運旅運資料代碼表定義.........-->
+	<xs:simpleType name="FerryRouteTypeEnum">
+		<xs:annotation>
+			<xs:documentation>航線種類
+			1:國際; 
+			2:國內; 
+			3:兩岸; 
+			4:遊輪; 
+			5:其他
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:int">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

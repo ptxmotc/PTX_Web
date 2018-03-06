@@ -1,0 +1,3181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2017 rel. 3 sp1 (x64) (http://www.altova.com) by YI JIE WU (International Integrated Systems, Inc. (IISI)) -->
+<xs:schema xmlns="http://ptx.transportdata.tw/standard/schema/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ptx.transportdata.tw/standard/schema/" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" id="PTX_Rail_MRT">
+	<!--=======[Dependencies]=======-->
+	<xs:include schemaLocation="../../PTX_Common.xsd"/>
+	<!--=======[ MRT Data List Type]=======-->
+	<xs:complexType name="MRTNetworkListType">
+		<xs:annotation>
+			<xs:documentation>捷運網路資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Network">
+				<xs:annotation>
+					<xs:documentation>網路</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="NetworkID" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>路網代碼</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="NetworkName" type="NameType">
+							<xs:annotation>
+								<xs:documentation>路網名稱</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="OperatorCode" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>營運業者簡碼</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="OperatorName" type="NameType">
+							<xs:annotation>
+								<xs:documentation>營運業者名稱</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="NetworkMapURL">
+							<xs:annotation>
+								<xs:documentation>路網圖網址URL</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:complexContent>
+									<xs:extension base="NetworkMapURLType"/>
+								</xs:complexContent>
+							</xs:complexType>
+						</xs:element>
+						<xs:element name="Lines">
+							<xs:annotation>
+								<xs:documentation>實體路線</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="Line" maxOccurs="unbounded">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="LineID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>實體路線代號</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="LineNo" type="xs:int">
+													<xs:annotation>
+														<xs:documentation>實體路線編號</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStationListType">
+		<xs:annotation>
+			<xs:documentation>捷運車站資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Stations">
+				<xs:annotation>
+					<xs:documentation>車站資料</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Station" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="StationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationPosition" type="PointType">
+										<xs:annotation>
+											<xs:documentation>車站位置</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationAddress" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站地址</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="BikeAllowOnHoliday" type="xs:boolean">
+										<xs:annotation>
+											<xs:documentation>假日自行車進出與否</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationURL" type="xs:anyURI">
+										<xs:annotation>
+											<xs:documentation>車站相關資訊網址</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStationExitListType">
+		<xs:annotation>
+			<xs:documentation>捷運車站出入口資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StationExits">
+				<xs:annotation>
+					<xs:documentation>車站資料資料</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationExit" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="StationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Exits">
+										<xs:annotation>
+											<xs:documentation>出入口資訊</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Exit" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:complexContent>
+															<xs:extension base="RailExitType">
+																<xs:sequence>
+																	<xs:element name="ExitMapURLs">
+																		<xs:annotation>
+																			<xs:documentation>車站出入口簡圖網址連結資訊
+</xs:documentation>
+																		</xs:annotation>
+																		<xs:complexType>
+																			<xs:sequence>
+																				<xs:element name="ExitMapURL" maxOccurs="unbounded">
+																					<xs:annotation>
+																						<xs:documentation>車站出入口簡圖網址連結資訊
+</xs:documentation>
+																					</xs:annotation>
+																					<xs:complexType>
+																						<xs:sequence>
+																							<xs:element name="MapName" type="NameType">
+																								<xs:annotation>
+																									<xs:documentation>車站出入口簡圖名稱
+</xs:documentation>
+																								</xs:annotation>
+																							</xs:element>
+																							<xs:element name="MapURL" type="xs:string">
+																								<xs:annotation>
+																									<xs:documentation>車站出入口簡圖網址
+</xs:documentation>
+																								</xs:annotation>
+																							</xs:element>
+																							<xs:element name="FloodLevel" type="xs:string">
+																								<xs:annotation>
+																									<xs:documentation>樓層
+</xs:documentation>
+																								</xs:annotation>
+																							</xs:element>
+																						</xs:sequence>
+																					</xs:complexType>
+																				</xs:element>
+																			</xs:sequence>
+																		</xs:complexType>
+																	</xs:element>
+																</xs:sequence>
+															</xs:extension>
+														</xs:complexContent>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStationFacilityListType">
+		<xs:annotation>
+			<xs:documentation>捷運車站設施資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StationFacilities">
+				<xs:annotation>
+					<xs:documentation>車站資料資料</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationFacility" type="RailStationFacilityType" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTLineListType">
+		<xs:annotation>
+			<xs:documentation>捷運路線車站資料清單類型</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Lines">
+				<xs:annotation>
+					<xs:documentation>實體路線資料</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Line" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LineNo" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>實體路線名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineSectionName" type="NameType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>實體路線起迄區間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineColor" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>實體路線代表顏色(以RGB色碼描述)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="IsBranch" type="xs:boolean">
+										<xs:annotation>
+											<xs:documentation>是否為支線</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineGroup" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>路線群組</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineURL" type="xs:anyURI" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>路線相關資訊網只</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTRouteListType">
+		<xs:annotation>
+			<xs:documentation>捷運營運路線資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Routes">
+				<xs:annotation>
+					<xs:documentation>營運路線</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Route" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="RouteID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>營運路線代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="OperatorCode" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>營運業者簡碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RouteName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>路線名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RouteType" type="RailRouteTypeEnum">
+										<xs:annotation>
+											<xs:documentation>路線類別代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineNo" type="xs:int" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StartStationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StartStationName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EndStationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EndStationName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TravelTime" type="xs:double" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>營運路線運行時間，以分鐘為單位</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RouteDistance" type="xs:double" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>營運路線長度距離，以公里為單位</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStationOfLineListType">
+		<xs:annotation>
+			<xs:documentation>捷運實體路線站序資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StationOfLines">
+				<xs:annotation>
+					<xs:documentation>實體路線站序</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationOfLine" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LineNo" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Stations">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Station">
+													<xs:annotation>
+														<xs:documentation>車站資料</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Sequence" type="xs:int">
+																<xs:annotation>
+																	<xs:documentation>站序描述(從1開始，整數遞增)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="StationID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>車站代碼</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="StationName" type="NameType">
+																<xs:annotation>
+																	<xs:documentation>車站名稱</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="CumulativeDistance" type="xs:double" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>累積距離(由首站累積，單位為公里)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStationOfRouteListType">
+		<xs:annotation>
+			<xs:documentation>捷運營運路線站序資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StationOfRoutes">
+				<xs:annotation>
+					<xs:documentation>營運路線站序</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationOfRoute" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LineNo" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RouteID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>營運路線代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RouteName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>路線名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Direction" type="DirectionEnum">
+										<xs:annotation>
+											<xs:documentation>營運路線方向</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Stations">
+										<xs:annotation>
+											<xs:documentation>營運路線站序</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Station">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Sequence" type="xs:int">
+																<xs:annotation>
+																	<xs:documentation>站序描述(從1開始，整數遞增)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="StationID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>車站代碼</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="StationName" type="NameType">
+																<xs:annotation>
+																	<xs:documentation>車站名稱</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="CumulativeDistance" type="xs:double" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>累積距離(由首站累積，單位為公里)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTTrainTypeListType">
+		<xs:annotation>
+			<xs:documentation>捷運列車種類資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrainTypes">
+				<xs:annotation>
+					<xs:documentation>列車種類</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TrainType" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="TrainTypeID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車種代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TrainTypeCode" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車種代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TrainTypeName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車種名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTODFareListType">
+		<xs:annotation>
+			<xs:documentation>捷運起訖站票價資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffectiveDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>有效日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpireDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>結束日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Version" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>資料版本</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ODFares">
+				<xs:annotation>
+					<xs:documentation>起訖站票價資料</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="ODFare" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="OriginStationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="OriginStationName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DestinationStationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DestinationStationName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TrainType" type="xs:string"/>
+									<xs:element name="Fares">
+										<xs:annotation>
+											<xs:documentation>票價收費資訊</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Fare" type="FareType" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="TravelTime" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>起迄站間乘車時間(分)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TravelDistance" type="xs:double">
+										<xs:annotation>
+											<xs:documentation>起迄站間乘車距離(公里到小數第三位)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTGeneralTrainTimeTableListType">
+		<xs:annotation>
+			<xs:documentation>捷運定期車次時刻表資料型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffectiveDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>有效日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpireDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>結束日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TimeTableName" type="NameType">
+				<xs:annotation>
+					<xs:documentation>定期車次時刻名稱</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidityDesciption" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>時刻表適用情形說明</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Version" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>資料版本</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrainTimeTables">
+				<xs:annotation>
+					<xs:documentation>列車角度</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TrainTimeTable" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="TrainInfo">
+										<xs:annotation>
+											<xs:documentation>車次資料</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="TrainNo" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>車次代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="RouteID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>營運路線代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="Direction" type="DirectionEnum">
+													<xs:annotation>
+														<xs:documentation>方向性描述</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="TripHeadsign" type="xs:string" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>車次車頭文字描述(通用以"往"+ 迄站中文站名")</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="StartingStaionID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>車站代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="StartingStaionName" type="NameType">
+													<xs:annotation>
+														<xs:documentation>車站名稱</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="EndingStaionID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>車站代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="EndingStaionIDName" type="NameType">
+													<xs:annotation>
+														<xs:documentation>車站名稱</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="TrainType" type="xs:string" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>車種</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="StoppingPatternID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>跑法代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="StopTimes" type="MRTStopTimeListType">
+										<xs:annotation>
+											<xs:documentation>停靠元素</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ServiceDays" type="ServiceDayType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>週內營運日</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTGeneralStationTimeTableListType">
+		<xs:annotation>
+			<xs:documentation>捷運定期站別時刻表資料型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffectiveDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>有效日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpireDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>結束日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TimeTableName" type="NameType" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>定期站別時刻名稱</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidityDesciption" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>時刻表適用情形說明</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Version" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>資料版本</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StationTimeTables">
+				<xs:annotation>
+					<xs:documentation>站別角度</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationTimeTable" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LineNo" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>實體路線簡碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>實體路線代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RouteID" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>營運路線代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Direction" type="DirectionEnum">
+										<xs:annotation>
+											<xs:documentation>方向性描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DestinationStaionID" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DestinationStaionName" type="NameType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Timetables">
+										<xs:annotation>
+											<xs:documentation>車站發車時刻資訊</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Timetable" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Sequence" type="xs:int">
+																<xs:annotation>
+																	<xs:documentation>發車順序</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="TrainNo" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>車次資料</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="ArrivalTime" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>到站時刻HH:mm</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="DepartureTime" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>發車時刻HH:mm</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ServiceDays" type="ServiceDayType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>週內營運日</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTSpecificTrainTimeTableListType">
+		<xs:annotation>
+			<xs:documentation>捷運特殊車次時刻表資料型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffectiveDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>有效日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpireDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>結束日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TimeTableName" type="NameType">
+				<xs:annotation>
+					<xs:documentation>特殊車次時刻名稱</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidityDesciption" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>時刻表適用情形說明</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Version" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>資料版本</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrainTimeTables">
+				<xs:annotation>
+					<xs:documentation>列車角度</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TrainTimeTable" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="TrainInfo">
+										<xs:annotation>
+											<xs:documentation>車次資料</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="TrainNo" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>車次代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="RouteID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>營運路線代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="Direction" type="DirectionEnum">
+													<xs:annotation>
+														<xs:documentation>方向性描述</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="TripHeadsign" type="xs:string" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>車次車頭文字描述(通用以"往"+ 迄站中文站名")</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="StartingStaionID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>車站代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="StartingStaionName" type="NameType">
+													<xs:annotation>
+														<xs:documentation>車站名稱</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="EndingStaionID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>車站代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="EndingStaionIDName" type="NameType">
+													<xs:annotation>
+														<xs:documentation>車站名稱</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="TrainType" type="xs:string" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>車種</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="StoppingPatternID" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>跑法代碼</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="StopTimes" type="MRTStopTimeListType">
+										<xs:annotation>
+											<xs:documentation>停靠元素</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="SpecialDays" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>例外營運日</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="SpacialDay" type="SpecialDayType" maxOccurs="unbounded"/>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTFirstLastTimeTableListType">
+		<xs:annotation>
+			<xs:documentation>捷運首末班車資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FirstLastTimetables">
+				<xs:annotation>
+					<xs:documentation>路線首末班車</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="FirstLastTimetables" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LineNo" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TripHeadSign" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>首末班車次之
+目的地方向描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DestinationStaionID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DestinationStaionName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TrainType" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車種</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="FirstTrainTime" type="xs:time">
+										<xs:annotation>
+											<xs:documentation>首班車時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LastTrainTime" type="xs:time">
+										<xs:annotation>
+											<xs:documentation>末班車時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:choice>
+										<xs:element name="ServiceDay" type="ServiceDayType" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>服務日</xs:documentation>
+											</xs:annotation>
+										</xs:element>
+										<xs:element name="SpecialDays" minOccurs="0">
+											<xs:annotation>
+												<xs:documentation>例外營運日</xs:documentation>
+											</xs:annotation>
+											<xs:complexType>
+												<xs:sequence>
+													<xs:element name="SpacialDay" type="SpecialDayType" maxOccurs="unbounded"/>
+												</xs:sequence>
+											</xs:complexType>
+										</xs:element>
+									</xs:choice>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStationLiveBoardListType">
+		<xs:annotation>
+			<xs:documentation>捷運車站即時到離站資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StationLiveBoards">
+				<xs:annotation>
+					<xs:documentation>站別角度</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationLiveBoard" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="StationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RouteID" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>下班車次所屬營運路線代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineNo" type="xs:int" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TripHeadSign" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>預設為最近列車終點站描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Platform" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>月台描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EndingStationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EndingStaionName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EstimateTime" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>抵達時間預估</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="UpdateTime" type="xs:dateTime">
+										<xs:annotation>
+											<xs:documentation>資料更新時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTTrainLiveBoardListType">
+		<xs:annotation>
+			<xs:documentation>捷運列車即時到離站資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="TrainLiveBoards">
+				<xs:annotation>
+					<xs:documentation>列車角度</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="TrainLiveBoard" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="TrainNo" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車次代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TrainStationStatus" type="TrainStationStatusEnum" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>列車目前所在之車站狀態(0:進站中; 1:在站上; 2:已離站)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="DelayTime" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>延誤分鐘</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="UpdateTime" type="xs:dateTime">
+										<xs:annotation>
+											<xs:documentation>資料更新時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTLineTransferListType">
+		<xs:annotation>
+			<xs:documentation>捷運內部路線轉乘資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LineTransfers">
+				<xs:annotation>
+					<xs:documentation>內部路線轉乘</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="LineTransfer" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="FromLineNo" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="FromLineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="FromStationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ToLineNo" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ToLineID" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ToStationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="IsOnSiteTransfer" type="xs:boolean">
+										<xs:annotation>
+											<xs:documentation>是否為站內或站外轉乘</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TransferTime" type="xs:double">
+										<xs:annotation>
+											<xs:documentation>轉乘耗時，以分鐘為單位</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TransferDescription" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>轉乘方式文字描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStationTransferListType">
+		<xs:annotation>
+			<xs:documentation>捷運車站跨運具轉乘資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StationTransfers">
+				<xs:annotation>
+					<xs:documentation>車站跨運具轉乘</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StationTransfer" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="StationID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>車站代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StationName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>車站名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TransferDescription" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>文字性轉乘描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="InteriorMapURLs" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>車站內部地圖簡圖連結</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="InteriorMapURL" minOccurs="0" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="MapName" type="NameType">
+																<xs:annotation>
+																	<xs:documentation>地圖名稱</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="MapURL" type="xs:anyURI">
+																<xs:annotation>
+																	<xs:documentation>連結網址</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="FloorLevel" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>樓層說明</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="ExteriorMapURLs" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>車站外部地圖簡圖連結</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="ExteriorMapURL" minOccurs="0" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="MapName" type="NameType">
+																<xs:annotation>
+																	<xs:documentation>地圖名稱</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="MapURL" type="xs:anyURI">
+																<xs:annotation>
+																	<xs:documentation>連結網址</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="FloorLevel" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>樓層說明</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Transfers">
+										<xs:annotation>
+											<xs:documentation>跨運具轉乘資訊</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Transfer">
+													<xs:annotation>
+														<xs:documentation>跨運具轉乘資訊</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="ExitID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>出口代號</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="ExitName" type="NameType">
+																<xs:annotation>
+																	<xs:documentation>出口名稱</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="RailTransfers">
+																<xs:annotation>
+																	<xs:documentation>軌道跨運具轉乘</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="RailTransfer" minOccurs="0" maxOccurs="unbounded">
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="Mode" type="ModeEnum">
+																						<xs:annotation>
+																							<xs:documentation>轉乘運具種類</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorCode" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>營運業者代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>營運業者名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="StationID" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>車站代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="StationName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>車站名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TransferTime" type="xs:double" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>轉乘耗時(分鐘為單位)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FloorLevel" type="xs:string" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>樓層</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Description" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>相關輔助性文字描述</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="IsOnSiteTransfer" type="xs:boolean" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>站內轉乘與否(0=站外,1=站內)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="BusTransfers">
+																<xs:annotation>
+																	<xs:documentation>公車跨運具轉乘</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="BusTransfer" minOccurs="0" maxOccurs="unbounded">
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="Mode" type="ModeEnum">
+																						<xs:annotation>
+																							<xs:documentation>轉乘運具種類</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorCode" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>營運業者代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>營運業者名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="RouteID" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>公車站線代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="RouteName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>公車站線名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="StopID" type="xs:string" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>公車站牌代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="StopName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>公車站牌名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Destination" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>轉乘公車開往方向</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TransferTime" type="xs:double" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>轉乘耗時(分鐘為單位)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FloorLevel" type="xs:string" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>樓層</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Description" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>相關輔助性文字描述</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="IsOnSiteTransfer" type="xs:boolean" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>站內轉乘與否(0=站外,1=站內)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Platform" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>月台</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="AirportTransfers">
+																<xs:annotation>
+																	<xs:documentation>機場跨運具轉乘</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="AirportTransfer" minOccurs="0" maxOccurs="unbounded">
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="Mode" type="ModeEnum">
+																						<xs:annotation>
+																							<xs:documentation>轉乘運具種類</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorCode" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>營運業者代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>營運業者名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="AirportID" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>機場代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="AirportName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>車站名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TransferTime" type="xs:double" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>轉乘耗時(分鐘為單位)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FloorLevel" type="xs:string" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>樓層</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Description" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>相關輔助性文字描述</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="IsOnSiteTransfer" type="xs:boolean" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>站內轉乘與否(0=站外,1=站內)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="BikeTransfers">
+																<xs:annotation>
+																	<xs:documentation>自行車跨運具轉乘</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="BikeTransfer" minOccurs="0" maxOccurs="unbounded">
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="Mode" type="ModeEnum">
+																						<xs:annotation>
+																							<xs:documentation>轉乘運具種類</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorCode" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>營運業者代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>營運業者名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="StationID" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>車站代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="StationName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>車站名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TransferTime" type="xs:double" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>轉乘耗時(分鐘為單位)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FloorLevel" type="xs:string" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>樓層</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Description" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>相關輔助性文字描述</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="IsOnSiteTransfer" type="xs:boolean" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>站內轉乘與否(0=站外,1=站內)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="ParkingTransfers">
+																<xs:annotation>
+																	<xs:documentation>停車場跨運具轉乘</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="ParkingTransfer" minOccurs="0" maxOccurs="unbounded">
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="Mode" type="ModeEnum">
+																						<xs:annotation>
+																							<xs:documentation>轉乘運具種類</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="CarParkID" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>營運業者代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="CarParkName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>營運業者名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TransferTime" type="xs:double" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>轉乘耗時(分鐘為單位)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FloorLevel" type="xs:string" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>樓層</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Description" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>相關輔助性文字描述</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="IsOnSiteTransfer" type="xs:boolean" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>站內轉乘與否(0=站外,1=站內)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="TaxiTransfers">
+																<xs:annotation>
+																	<xs:documentation>計程車跨運具轉乘</xs:documentation>
+																</xs:annotation>
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="TaxiTransfer" minOccurs="0" maxOccurs="unbounded">
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="Mode" type="ModeEnum">
+																						<xs:annotation>
+																							<xs:documentation>轉乘運具種類</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TaxiStopID" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>營運業者代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TaxiStopName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>營運業者名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TransferTime" type="xs:double" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>轉乘耗時(分鐘為單位)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FloorLevel" type="xs:string" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>樓層</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Description" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>相關輔助性文字描述</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="IsOnSiteTransfer" type="xs:boolean" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>站內轉乘與否(0=站外,1=站內)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+															<xs:element name="FerryTransfers">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="FerryTransfer" minOccurs="0">
+																			<xs:complexType>
+																				<xs:sequence>
+																					<xs:element name="Mode" type="ModeEnum">
+																						<xs:annotation>
+																							<xs:documentation>轉乘運具種類</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorCode" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>營運業者代碼</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="OperatorName" type="NameType">
+																						<xs:annotation>
+																							<xs:documentation>營運業者名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FerryStationID">
+																						<xs:annotation>
+																							<xs:documentation>航運站ID</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FerryStationName">
+																						<xs:annotation>
+																							<xs:documentation>航運站名稱</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="TransferTime" type="xs:double" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>轉乘耗時(分鐘為單位)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="FloorLevel" type="xs:string" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>樓層</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="Description" type="xs:string">
+																						<xs:annotation>
+																							<xs:documentation>相關輔助性文字描述</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																					<xs:element name="IsOnSiteTransfer" type="xs:boolean" minOccurs="0">
+																						<xs:annotation>
+																							<xs:documentation>站內轉乘與否(0=站外,1=站內)</xs:documentation>
+																						</xs:annotation>
+																					</xs:element>
+																				</xs:sequence>
+																			</xs:complexType>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTFrequencyListType">
+		<xs:annotation>
+			<xs:documentation>捷運發車頻率資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="EffectiveDate" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>有效日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ExpireDate" type="xs:dateTime" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>結束日期</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="FrequencyName" type="NameType">
+				<xs:annotation>
+					<xs:documentation>發車頻率名稱</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="ValidityDesciption" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>時刻表適用情形說明</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Version" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>資料版本</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Frequencies">
+				<xs:annotation>
+					<xs:documentation>路線發車頻率</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Frequency" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="RouteID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>營運路線代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineNo" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TrainType" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ServiceDay" type="ServiceDayType">
+										<xs:annotation>
+											<xs:documentation>週內營運日</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="SpecialDays" type="SpecialDayType" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>週內營運日</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="OperationTime">
+										<xs:annotation>
+											<xs:documentation>營運時間</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="StartTime" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>起始時間HH:mm</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+												<xs:element name="EndTime" type="xs:string">
+													<xs:annotation>
+														<xs:documentation>結束時間HH:mm</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Headways">
+										<xs:annotation>
+											<xs:documentation>發車班距</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Headway" type="HeadwayType" maxOccurs="unbounded">
+													<xs:annotation>
+														<xs:documentation>發車班距</xs:documentation>
+													</xs:annotation>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTS2STravelTimeListType">
+		<xs:annotation>
+			<xs:documentation>捷運站間旅行時間資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="S2STravelTimes">
+				<xs:annotation>
+					<xs:documentation>站間旅行時間</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="S2STravelTime" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LineNo" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TrainType" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>車種描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="TravelTimes">
+										<xs:annotation>
+											<xs:documentation>旅行時間</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="TravelTime" maxOccurs="unbounded">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Sequence" type="xs:int">
+																<xs:annotation>
+																	<xs:documentation>序號，由1開始，整數遞增</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="FromStationID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>運行(起)之車站</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="ToStationID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>運行(迄)之車站</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="RunTime" type="xs:double">
+																<xs:annotation>
+																	<xs:documentation>站間行駛時間(分鐘)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="StopTime" type="xs:double">
+																<xs:annotation>
+																	<xs:documentation>起站停靠時間(分鐘)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTShapeListType">
+		<xs:annotation>
+			<xs:documentation>捷運線型資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Shapes">
+				<xs:annotation>
+					<xs:documentation>軌道線型</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Shape" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LineID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線代號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="RouteID" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>營運路線代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Geometry" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation> well-known text，以字串儲存線型資料，資料型態為 LineString </xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTNewsListType">
+		<xs:annotation>
+			<xs:documentation>捷運最新消息資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Newses">
+				<xs:annotation>
+					<xs:documentation>最新消息</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="News" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="NewsID" type="xs:string"/>
+									<xs:element name="Language" type="LanguageEnum" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>語系(目前僅高鐵提供)</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Department" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>發布單位</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Title" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>消息標題</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="NewsCategory" type="NewsCategoryEnum">
+										<xs:annotation>
+											<xs:documentation>消息類別</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Description" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>內容描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="NewsURL" type="xs:anyURI" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>報導網站超連結</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="AttachmentURL" type="xs:anyURI" minOccurs="0" maxOccurs="unbounded">
+										<xs:annotation>
+											<xs:documentation>相關附件網站連結</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StartTime" type="xs:dateTime" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>消息有效開始時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EndTime" type="xs:dateTime" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>消息有效集數時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PublishTime" type="xs:dateTime">
+										<xs:annotation>
+											<xs:documentation>消息公告時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="UpdateTime" type="xs:dateTime">
+										<xs:annotation>
+											<xs:documentation>資料更新時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTAlertListType">
+		<xs:annotation>
+			<xs:documentation>捷運通阻事件資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Alerts">
+				<xs:annotation>
+					<xs:documentation>通阻事件</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Alert" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="AlertID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>通阻事件原單位發布代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Title" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>通阻標題</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Description" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>事件簡易描述</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Status" type="xs:int">
+										<xs:annotation>
+											<xs:documentation>營運狀況</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Scope">
+										<xs:annotation>
+											<xs:documentation>影響範圍</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="NetworkList" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>網路</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="NetworkID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>路網代碼</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="Stations" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>車站</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Station" minOccurs="0" maxOccurs="unbounded">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="StationID" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>車站代碼</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="StationName" type="NameType">
+																			<xs:annotation>
+																				<xs:documentation>車站名稱</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="Lines" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>實體路線</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Line" minOccurs="0" maxOccurs="unbounded">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="LineID" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>實體路線代號</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="LineName" type="NameType">
+																			<xs:annotation>
+																				<xs:documentation>實體路線名稱</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="Routes" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>營運路線</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Route" minOccurs="0" maxOccurs="unbounded">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="RouteID" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>營運路線代碼</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="RouteName" type="NameType">
+																			<xs:annotation>
+																				<xs:documentation>路線名稱</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="Trains" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>列車車次</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Train" minOccurs="0" maxOccurs="unbounded">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="TrainNo" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>車次代碼</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+												<xs:element name="LineSections" minOccurs="0">
+													<xs:annotation>
+														<xs:documentation>實體路線區間</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="LineSection" minOccurs="0" maxOccurs="unbounded">
+																<xs:complexType>
+																	<xs:sequence>
+																		<xs:element name="LineID" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>實體路線代號</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="StartingStationID" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>車站代碼</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="StartingStationName" type="NameType">
+																			<xs:annotation>
+																				<xs:documentation>車站名稱</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="EndingStationID" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>車站代碼</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="EndingStationName" type="NameType">
+																			<xs:annotation>
+																				<xs:documentation>車站名稱</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																		<xs:element name="Description" type="xs:string">
+																			<xs:annotation>
+																				<xs:documentation>輔助描述</xs:documentation>
+																			</xs:annotation>
+																		</xs:element>
+																	</xs:sequence>
+																</xs:complexType>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+									<xs:element name="Direction" type="DirectionEnum" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>影響方向</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Level" type="AlertLevelEnum" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>事件影響等級</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Effect" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>影響狀態</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Reason" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>事件原因</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="AlertURL" type="xs:anyURI" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>事件詳細描述網站超連結</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="StartTime" type="xs:dateTime" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>開始時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="EndTime" type="xs:dateTime" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>結束時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="PublishTime" type="xs:dateTime" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>消息公告時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="UpdateTime" type="xs:dateTime">
+										<xs:annotation>
+											<xs:documentation>資料更新日期時間</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStoppingPatternListType">
+		<xs:annotation>
+			<xs:documentation>捷運停戰模式資料清單類型</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="StoppingPatterns">
+				<xs:annotation>
+					<xs:documentation>車次跑法</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StoppingPattern" maxOccurs="unbounded">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="StoppingPatternID" type="xs:string"/>
+									<xs:element name="StoppingPatternName" type="NameType"/>
+									<xs:element name="RouteID" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>營運路線代碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="Stations">
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="Station">
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="Sequence" type="xs:int">
+																<xs:annotation>
+																	<xs:documentation>站序描述(從1開始，整數遞增)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="StationID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>營運路線代碼</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="StationName" type="NameType">
+																<xs:annotation>
+																	<xs:documentation>車站名稱</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="CumulativeDistance" type="xs:double" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>累積距離(由首站累積，單位為公里)</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="TravelTime" type="xs:int" minOccurs="0">
+																<xs:annotation>
+																	<xs:documentation>以秒為單位</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTStopTimeListType">
+		<xs:annotation>
+			<xs:documentation>捷運停靠元素資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="StopTimes" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>停靠元素資料</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="StopSequence" type="xs:integer">
+							<xs:annotation>
+								<xs:documentation>停靠站序(由1開始)</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="StationID" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>車站代碼</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="ArrivalTime" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>到站時間HH:mm</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+						<xs:element name="DepartureTime" type="xs:string">
+							<xs:annotation>
+								<xs:documentation>離站時間HH:mm</xs:documentation>
+							</xs:annotation>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTLineNetworkListType">
+		<xs:annotation>
+			<xs:documentation>捷運路線支線資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LineNetworks">
+				<xs:annotation>
+					<xs:documentation>路網路線資料</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="LineNetwork" maxOccurs="unbounded">
+							<xs:annotation>
+								<xs:documentation>路網路線資料</xs:documentation>
+							</xs:annotation>
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="LineNo" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>實體路線編號</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>實體路線名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="LineSegments">
+										<xs:annotation>
+											<xs:documentation>路線站點間線段</xs:documentation>
+										</xs:annotation>
+										<xs:complexType>
+											<xs:sequence>
+												<xs:element name="LineSegment" maxOccurs="unbounded">
+													<xs:annotation>
+														<xs:documentation>路線站點間線段</xs:documentation>
+													</xs:annotation>
+													<xs:complexType>
+														<xs:sequence>
+															<xs:element name="LineSegmentID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>線段代碼</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="LineSegmentName" type="NameType">
+																<xs:annotation>
+																	<xs:documentation>線段名稱</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="FromStationID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>線段起點車站代碼</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="ToStationID" type="xs:string">
+																<xs:annotation>
+																	<xs:documentation>線段迄點車站代碼</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="SegmentType" type="RailSegmentTypeEnum">
+																<xs:annotation>
+																	<xs:documentation>線段種類</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+															<xs:element name="Distance" type="xs:int">
+																<xs:annotation>
+																	<xs:documentation>線段距離</xs:documentation>
+																</xs:annotation>
+															</xs:element>
+														</xs:sequence>
+													</xs:complexType>
+												</xs:element>
+											</xs:sequence>
+										</xs:complexType>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MRTOperatorListType">
+		<xs:annotation>
+			<xs:documentation>捷運營運業者資料清單型別</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="UpdateTime" type="xs:dateTime">
+				<xs:annotation>
+					<xs:documentation>資料更新時間</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="UpdateInterval" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>資料更新週期(秒)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="AuthorityCode" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>業管機關簡碼</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="Operators">
+				<xs:annotation>
+					<xs:documentation>營運業者</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="Operator">
+							<xs:complexType>
+								<xs:sequence>
+									<xs:element name="OperatorCode" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>營運業者簡碼</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="OperatorName" type="NameType">
+										<xs:annotation>
+											<xs:documentation>營運業者名稱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="OperatorPhone" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>營運業者連絡電話</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="OperatorEmail" type="xs:string">
+										<xs:annotation>
+											<xs:documentation>營運業者電子信箱</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="OperatorURL" type="xs:anyURI">
+										<xs:annotation>
+											<xs:documentation>營運業者網址鏈結</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="FareURL" type="xs:anyURI" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>營運業者票價相關網站</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ReservationURL" type="xs:anyURI" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>營運業者訂票網站</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="ReservationPhone" type="xs:string" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>營運業者訂票電話</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+									<xs:element name="OperatorLogoURL" type="xs:anyURI" minOccurs="0">
+										<xs:annotation>
+											<xs:documentation>營運業者Logo網址</xs:documentation>
+										</xs:annotation>
+									</xs:element>
+								</xs:sequence>
+							</xs:complexType>
+						</xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<!--=======[ ALLData Element Group]=======-->
+	<xs:element name="MRTAllDataList">
+		<xs:annotation>
+			<xs:documentation>捷運運具資料集清單</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element ref="MRTNetworkList"/>
+				<xs:element ref="MRTStationList"/>
+				<xs:element ref="MRTStationExitList"/>
+				<xs:element ref="MRTStationFacilityList"/>
+				<xs:element ref="MRTLineList"/>
+				<xs:element ref="MRTRouteList"/>
+				<xs:element ref="MRTStationOfLineList"/>
+				<xs:element ref="MRTStationOfRouteList"/>
+				<xs:element ref="MRTTrainTypeList"/>
+				<xs:element ref="MRTODFareList"/>
+				<xs:element ref="MRTGeneralTrainTimeTableList"/>
+				<xs:element ref="MRTGeneralStationTimeTableList"/>
+				<xs:element ref="MRTSpecificTrainTimeTableList"/>
+				<xs:element ref="MRTFirstLastTimeTableList"/>
+				<xs:element ref="MRTStationLiveBoardList"/>
+				<xs:element ref="MRTTrainLiveBoardList"/>
+				<xs:element ref="MRTLineTransferList"/>
+				<xs:element ref="MRTStationTransferList"/>
+				<xs:element ref="MRTFrequencyList"/>
+				<xs:element ref="MRTS2STravelTimeList"/>
+				<xs:element ref="MRTShapeList"/>
+				<xs:element ref="MRTNewsList"/>
+				<xs:element ref="MRTAlertList"/>
+				<xs:element ref="MRTStoppingPatternList"/>
+				<xs:element ref="MRTLineNetworkList"/>
+				<xs:element ref="MRTOperatorList"/>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="MRTNetworkList" type="MRTNetworkListType">
+		<xs:annotation>
+			<xs:documentation>網路資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTStationList" type="MRTStationListType">
+		<xs:annotation>
+			<xs:documentation>車站資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTStationExitList" type="MRTStationExitListType">
+		<xs:annotation>
+			<xs:documentation>車站出入口資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTStationFacilityList" type="MRTStationFacilityListType">
+		<xs:annotation>
+			<xs:documentation>車站設施資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTLineList" type="MRTLineListType">
+		<xs:annotation>
+			<xs:documentation>實體路線資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTRouteList" type="MRTRouteListType">
+		<xs:annotation>
+			<xs:documentation>營運路線資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTStationOfLineList" type="MRTStationOfLineListType">
+		<xs:annotation>
+			<xs:documentation>實體路線站序資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTStationOfRouteList" type="MRTStationOfRouteListType">
+		<xs:annotation>
+			<xs:documentation>營運路線站序資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTTrainTypeList" type="MRTTrainTypeListType">
+		<xs:annotation>
+			<xs:documentation>車種類型資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTODFareList" type="MRTODFareListType">
+		<xs:annotation>
+			<xs:documentation>起迄站收費資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTGeneralTrainTimeTableList" type="MRTGeneralTrainTimeTableListType">
+		<xs:annotation>
+			<xs:documentation>定期車次時刻表資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTGeneralStationTimeTableList" type="MRTGeneralStationTimeTableListType">
+		<xs:annotation>
+			<xs:documentation>定期站別時刻表資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTSpecificTrainTimeTableList" type="MRTSpecificTrainTimeTableListType">
+		<xs:annotation>
+			<xs:documentation>定期車次時刻表資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTFirstLastTimeTableList" type="MRTFirstLastTimeTableListType">
+		<xs:annotation>
+			<xs:documentation>首末班資訊資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTStationLiveBoardList" type="MRTStationLiveBoardListType">
+		<xs:annotation>
+			<xs:documentation>車站即時到離站資訊資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTTrainLiveBoardList" type="MRTTrainLiveBoardListType">
+		<xs:annotation>
+			<xs:documentation>列車即時到離站資訊資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTLineTransferList" type="MRTLineTransferListType">
+		<xs:annotation>
+			<xs:documentation>內部路線轉乘資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTStationTransferList" type="MRTStationTransferListType">
+		<xs:annotation>
+			<xs:documentation>車站跨運具轉乘資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTFrequencyList" type="MRTFrequencyListType">
+		<xs:annotation>
+			<xs:documentation>發車頻率資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTS2STravelTimeList" type="MRTS2STravelTimeListType">
+		<xs:annotation>
+			<xs:documentation>站間旅行時間資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTShapeList" type="MRTShapeListType">
+		<xs:annotation>
+			<xs:documentation>空間線型資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTAlertList" type="MRTAlertListType">
+		<xs:annotation>
+			<xs:documentation>營運通阻資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTNewsList" type="MRTNewsListType">
+		<xs:annotation>
+			<xs:documentation>最新消息資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTStoppingPatternList" type="MRTStoppingPatternListType">
+		<xs:annotation>
+			<xs:documentation>停站模式資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTLineNetworkList" type="MRTLineNetworkListType">
+		<xs:annotation>
+			<xs:documentation>路線支線資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="MRTOperatorList" type="MRTOperatorListType">
+		<xs:annotation>
+			<xs:documentation>營運業者資料清單</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+</xs:schema>

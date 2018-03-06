@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project SCCKind="MS" SCCParam0="SOFTWARE\Microsoft\Team Foundation Server MSSCCI Provider" SCCParam1="$/D161514/01-文件類/XSD" SCCParam2="http://tfssrv.iisigroup.com:8080/tfs/iisi|1602011NB01|IEAD\1602011" SccVersion="1">
+	<Folder FolderName="PTX Schemas" ExtStr="xsd">
+		<Folder FolderName="Air">
+			<File FilePath="Air\PTX_Air.xsd" HomeFolder="Yes"/>
+			<File FilePath="Air\PTX_Air_Code.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="Bus">
+			<File FilePath="Bus\PTX_Bus.xsd" HomeFolder="Yes"/>
+			<File FilePath="Bus\PTX_Bus_Codes.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="Rail">
+			<Folder FolderName="MRT">
+				<File FilePath="Rail\MRT\PTX_MRT.xsd" HomeFolder="Yes"/>
+			</Folder>
+			<Folder FolderName="TRA">
+				<File FilePath="Rail\TRA\PTX_TRA.xsd" HomeFolder="Yes"/>
+				<File FilePath="Rail\TRA\PTX_TRA_Codes.xsd" HomeFolder="Yes"/>
+			</Folder>
+			<Folder FolderName="THSR">
+				<File FilePath="Rail\THSR\PTX_THSR.xsd" HomeFolder="Yes"/>
+				<File FilePath="Rail\THSR\PTX_THSR_codes.xsd" HomeFolder="Yes"/>
+			</Folder>
+			<File FilePath="Rail\PTX_Rail.xsd" HomeFolder="Yes"/>
+			<File FilePath="Rail\PTX_Rail_Codes.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="Bike">
+			<File FilePath="Bike\PTX_Bike.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<Folder FolderName="Ferry">
+			<File FilePath="Ferry\Ferry.xsd" HomeFolder="Yes"/>
+			<File FilePath="Ferry\PTX_Ferry_Code.xsd" HomeFolder="Yes"/>
+		</Folder>
+		<File FilePath="PTX_Common.xsd" HomeFolder="Yes"/>
+	</Folder>
+	<SourceControl Provider="Team Foundation Server MSSCCI Provider" LocalPath="." ProjName="$/D161514/01-文件類/XSD"/>
+</Project>

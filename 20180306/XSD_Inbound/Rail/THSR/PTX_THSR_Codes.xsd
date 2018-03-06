@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2015 rel. 4 sp1 (x64) (http://www.altova.com) by KUO CHEN WANG (Ministry of Transportation and Communications) -->
+<xs:schema xmlns="http://ptx.transportdata.tw/standard/schema/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://ptx.transportdata.tw/standard/schema/" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0" id="ptx_rail_thsr_codes">
+	<!--====高鐵旅運資料代碼表定義 =================================================================== -->
+	<!--[高鐵車站ID代碼資料型別]-->
+	<xs:simpleType name="RailStationIDEnum_THSR">
+		<xs:annotation>
+			<xs:documentation>高鐵車站ID代碼定義
+					車站代號	中文	英文
+					0990 	南港	Nangang 
+					1000 	台北	Taipei 
+					1010 	板橋	Banciao 
+					1020 	桃園	Taoyuan 
+					1030 	新竹	Hsinchu 
+					1040 	台中	Taichung 
+					1050 	嘉義	Chiayi 
+					1060 	台南	Tainan 
+					1070 	左營	Zuoying 
+             </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:integer">
+			<xs:enumeration value="0990"/>
+			<xs:enumeration value="1000"/>
+			<xs:enumeration value="1010"/>
+			<xs:enumeration value="1020"/>
+			<xs:enumeration value="1030"/>
+			<xs:enumeration value="1040"/>
+			<xs:enumeration value="1050"/>
+			<xs:enumeration value="1060"/>
+			<xs:enumeration value="1070"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--[高鐵月台代碼資料型別]-->
+	<xs:simpleType name="RailPlatformCodeEnum_THSR">
+		<xs:annotation>
+			<xs:documentation>高鐵列月台代碼定義
+                        1 = 第1月台
+                        2 = 第2月台
+                        3 = 第3月台
+                        1A = 1A月台
+                        1B = 1B月台
+                        2A = 2A月台
+                        2B = 2B月台
+                        3A = 3A月台
+                        3B = 3B月台
+             </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+			<xs:enumeration value="1A"/>
+			<xs:enumeration value="1B"/>
+			<xs:enumeration value="2A"/>
+			<xs:enumeration value="2B"/>
+			<xs:enumeration value="3A"/>
+			<xs:enumeration value="3B"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--[高鐵剩餘座位客滿狀態代碼資料型別]-->
+	<xs:simpleType name="RailAvailSeatStatusCodeEnum_THSR">
+		<xs:annotation>
+			<xs:documentation>高鐵剩餘座位客滿狀態代碼定義
+                        Available =  剩有座位
+                        Limited     =  部分區間座位有限
+                        Full           =  各區間已無座位
+             </xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Available"/>
+			<xs:enumeration value="Limited"/>
+			<xs:enumeration value="Full"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--[高鐵艙等代碼資料型別]-->
+	<xs:simpleType name="RailCabinClassEnum_THSR">
+		<xs:annotation>
+			<xs:documentation>高鐵艙等代碼資料型別
+			標準座車廂=Regular
+			商務座車廂=Bussiness
+			自由座車廂=No Reserved
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="1"/>
+			<xs:enumeration value="2"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!--[高鐵消息類型代碼資料型別]-->
+	<xs:simpleType name="RailNewsCategoryEnum_THSR">
+		<xs:annotation>
+			<xs:documentation>高鐵消息類型代碼資料型別
+			             Press Release=新聞稿
+			             Operation Info =營運資訊
+			             Transfer Info=轉乘資訊
+			             Activity Info=活動資訊
+			             System Info=系統公告
+			             Others=其他			
+			</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Press Release"/>
+			<xs:enumeration value="Operation Info"/>
+			<xs:enumeration value="Transfer Info"/>
+			<xs:enumeration value="Activity Info"/>
+			<xs:enumeration value="System Info"/>
+			<xs:enumeration value="Others"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>
